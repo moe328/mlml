@@ -1,0 +1,29 @@
+* { box-sizing: border-box; }
+body { margin: 0; background: #fff; color: #222; font: 14px Arial, sans-serif; }
+main { max-width: 920px; margin: 48px auto; padding: 0 20px; }
+h1 { margin: 0 0 24px; font-size: 24px; }
+h2 { margin: 0 0 16px; font-size: 16px; }
+form { display: flex; gap: 8px; margin-bottom: 28px; max-width: 440px; }
+button, input { font: inherit; border: 1px solid #ccc; border-radius: 4px; padding: 8px 10px; }
+input { flex: 1; min-width: 0; }
+button { background: #eee; color: #222; cursor: pointer; }
+button:hover:not(:disabled) { background: #ddd; }
+button:disabled { cursor: default; color: #888; }
+.board { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.column { background: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; padding: 16px; min-height: 240px; }
+.column.drop-target { background: #e8eef5; border-color: #7c8fa5; }
+ul { list-style: none; padding: 0; margin: 0; }
+li { background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 12px; margin-bottom: 10px; }
+li[draggable] { cursor: grab; }
+li.dragging { opacity: .4; cursor: grabbing; }
+li p { margin: 0 0 14px; overflow-wrap: anywhere; line-height: 1.5; }
+.task-actions { display: flex; justify-content: flex-end; }
+.task-actions button { font-size: 12px; padding: 6px; }
+.empty { color: #777; font-size: 13px; }
+.error { color: #a32c2c; line-height: 1.5; }
+:focus-visible { outline: 2px solid #555; outline-offset: 3px; }
+@media (max-width: 650px) {
+  main { margin: 28px auto; }
+  .board { grid-template-columns: 1fr; }
+  .column { min-height: 160px; }
+}
