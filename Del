@@ -1,0 +1,21 @@
+const fs = require("fs");
+
+app.delete("/tasks/:id", (req, res) => {
+
+    const tasks = JSON.parse(
+        fs.readFileSync("tasks.json", "utf8")
+    );
+
+    const id = Number(req.params.id);
+
+    const newTasks = tasks.filter(task => task.id !== id);
+
+    fs.writeFileSync(
+        "tasks.json",
+        JSON.stringify(newTasks, null, 2)
+    );
+
+    res.json({
+        message: "Task deleted"
+    });
+});
