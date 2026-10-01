@@ -1,0 +1,50 @@
+const express = require("express");
+const cors = require("cors");
+const fs = require("fs");
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+const file = "tasks.json";
+
+app.get("/tasks", (req, res) => {
+    const tasks = JSON.parse(fs.readFileSync(file, "utf8"));
+
+    res.json(tasks);
+});
+
+app.post("/tasks", (req, res) => {
+
+    const tasks = JSON.parse(fs.readFileSync(file, "utf8"));
+
+    const newTask = {
+        id: Date.now(),
+        title: req.body.title,
+        completed: false
+    };
+
+    tasks.push(newTask);
+
+    fs.writeFileSync(file, JSON.stringify(tasks, null, 2));
+
+    res.json(newTask);
+});
+
+app.delete("/tasks/:id", (req, res) => {
+
+    const tasks = JSON.parse(fs.readFileSync(file, "utf8"));
+
+    const newTasks = tasks.filter(
+        task => task.id !== Number(req.params.id)
+    );
+
+    fs.writeFileSync(file, JSON.stringify(newTasks, null, 2));
+
+    res.json({ message: "Task deleted" });
+});
+
+app.listen(5000, () => {
+    console.log("Server running on port 5000");
+});
